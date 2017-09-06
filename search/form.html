@@ -16,12 +16,32 @@
 			var categories_str = document.getElementById('categories').value;
 			var categories = formatCategories(categories_str);
 			console.log(categories);
+			createEventRequest(name, school, description, categories);
 		}
 
 		function formatCategories(categories) {
 			var categoriesArr = categories.split(",");
 			return categoriesArr;
 		}
+
+		function createEventRequest(name, school, description, categories) {
+				XHRequest.createRequest({
+					success: confirm, 
+					method: "GET",
+					params: {
+						command: "newclub",
+						school: school,
+						name: name,
+						description: description,
+						categories: categories
+					},
+					url: "../scripts/database.py"
+				});
+			}
+
+			function confirm() {
+				alert("Added");
+			}
 
 		</script>
 	</head>

@@ -6,21 +6,31 @@ import shelve
 import json
 import cgi
 
-def new_club(name, categories, description, school, f):
+def new_club(name, categories, description):
     g = {"name":name, "categories":categories, "description":description}
-    f[school].append(g)
     return g
 
 clubs = shelve.open("information_data.shelve", writeback=True)
-if not ("clubs" in clubs):
-    clubs = {"harker":[], "users":{"unique":0}}
+if not ("schools" in clubs):
+    clubs["schools"] = {"harker":[]}
+    clubs["users"]["unique"] = 0
     
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
 school = form.getfirst("school", "")
-clubs["harker"] = []
-clubs["harker"].append(new_club("Red Cross", ["humanitarian"], "Red Cross aims to help others everywhere."))
+name = form.getfirst("name", "")
+description = form.getfirst("description", "")
+categories = form.getfirst("categories", "")
+
 if (command == "pageload"):
-    d = clubs[school]
+    d = clubs["schools"][school]
     j = json.dumps(d)
     print j
+    
+if (command == "newclub"):
+    clubs["schools"][school].append(new_club(name, categories, description))
+    clubs["schools"][school] = sorted(clubs["school"][school])
+    d = {"sucess":True}
+    j = json.dumps(d)
+    print j
+clubs.close()
