@@ -1,0 +1,9 @@
+.center {
+	text-align: center;
+	display: block;
+	margin: 0px auto;
+}
+
+.categories {
+	border: 1px;
+}

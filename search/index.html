@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Club Finder</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
+
+		<script src="../js/XHRequest.js"></script>
+
+		<script>
+
+		var school;
+
+		function findSchool() {
+			school = "harker";
+			document.getElementById("name").innerHTML = "Club Finder: " + school;
+		}
+
+		function getClubs(school, categories) {
+			XHRequest.createRequest({
+				success: displayClubs, 
+				method: "GET",
+				params: {
+					command: "pageload",
+					school: school,
+					categories: categories
+				},
+				url: "../scripts/database.py"
+			});
+		}
+
+		function displayClubs(xhr, xhrConfig) {
+			var clubs = JSON.parse(xhr.responseText);
+			if (clubs.length == 0) {
+					document.getElementById("groups").innerHTML = "<h1 class='text-center'>Oops! No clubs were found.</h1>";
+			}
+			for (var i = 0; i < clubs.length; i++) {
+				var html = '<div class="container-fluid text-center">\
+				<h3>'+clubs[i].name+'</h3>\
+				<p class="lead">'+clubs[i].description+'</p>\
+				<strong><p>Categories: '+clubs[i].categories+'</p></strong>\
+				<hr>\
+				</div>';
+			}
+			console.log("running");
+			var groupElement = document.getElementById("groups").innerHTML;
+			groupElement += html;
+			document.getElementById("groups").innerHTML = groupElement;
+		}
+
+		function run() {
+			findSchool();
+			getClubs(school, []);
+		}
+
+		</script>
+
+	</head>
+
+	<body onload="run()">
+
+		<h1 class="text-center" id="name">Club Finder</h1>
+		<h5 class="text-center"><a href="/">Pick Another School</a></h5>
+		<hr>
+
+		<div class="col-md-3 col-xs-12 categories">
+
+		</div>
+
+		<div id="groups" class="col-md-12 col-xs-12">
+			
+		</div>
+
+	</body>
+</html>

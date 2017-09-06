@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Club Finder</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<link href="../CSS/bootstrap.css" rel="stylesheet">
+		<link href="../CSS/organize.css" rel="stylesheet">
+
+		<script src="../js/XHRequest.js"></script>
+
+		<script>
+
+		function submitForm() {
+			var name = document.getElementById('name').value;
+			var school = document.getElementById('school').value;
+			var description = document.getElementById('description').value;
+			var categories_str = document.getElementById('categories').value;
+			var categories = formatCategories(categories_str);
+			console.log(categories);
+		}
+
+		function formatCategories(categories) {
+			var categoriesArr = categories.split(",");
+			return categoriesArr;
+		}
+
+		</script>
+	</head>
+
+	<body>
+		<form>
+			<label>Club Name</label>
+			<input id="name">
+			<label>School</label>
+			<select id="school" type="dropdown">
+				<option>harker</option>
+			</select>
+			<label>Description</label>
+			<textarea id="description"></textarea>
+			<label>Categories</label>
+			<input id="categories">
+		</form>
+
+		<button onclick="submitForm()">Submit</button>
+	</body>
+
+</html>

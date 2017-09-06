@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Club Finder</title>
+		<meta name = "viewport" content="initial-scale=1.0">
+		<link href="CSS/bootstrap.css" rel="stylesheet">
+		<link href="CSS/organize.css" rel="stylesheet">
+
+		<script>
+
+		function chooseSchool(school) {
+			window.location="search?school="+school;
+		}
+
+		</script>
+
+	</head>
+
+	<body>
+		<h1 class="text-center">Hello.</h1>
+		<h3 class="text-center">Please select your school</h3>
+
+		<div class="center">
+			<button class="btn btn-default" onclick="chooseSchool('harker')">Harker</button>
+		</div>
+
+	</body>
+</html>
