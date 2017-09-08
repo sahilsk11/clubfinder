@@ -13,7 +13,7 @@ def new_club(name, categories, description):
 clubs = shelve.open("information_data.shelve", writeback=True)
 if not ("schools" in clubs):
     clubs["schools"] = {"harker":[]}
-    clubs["users"]["unique"] = 0
+    clubs["users"] = {"unique": 0}
     
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")

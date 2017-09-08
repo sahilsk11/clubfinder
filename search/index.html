@@ -13,7 +13,9 @@
 		var school;
 
 		function findSchool() {
-			school = "harker";
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			school = url.searchParams.get("school");
 			document.getElementById("name").innerHTML = "Club Finder: " + school;
 		}
 
