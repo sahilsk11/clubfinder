@@ -28,6 +28,8 @@ if (command == "pageload"):
     print j
     
 if (command == "newclub"):
+    if (not school in clubs["schools"]):
+        clubs["schools"][school] = []
     clubs["schools"][school].append(new_club(name, categories, description))
     clubs["schools"][school] = sorted(clubs["school"][school])
     d = {"sucess":True}
