@@ -16,7 +16,57 @@
 			var url_string = window.location.href;
 			var url = new URL(url_string);
 			school = url.searchParams.get("school");
+			if (school == null) {
+				window.location = "../";
+			}
 			document.getElementById("name").innerHTML = "Club Finder: " + school;
+		}
+
+		function getCategories() {
+			categories = decodeCategoriesURL();
+			displayCategories(categoriesArr);
+			return categoriesArr;
+		}
+
+		function displayCategories(categories) {
+			for (var i = 0; i < categories.length; i++) {
+				var element = document.getElementById(categories[i]);
+				if (element != null) {
+					element.checked = "true";
+				}
+			}
+		}
+
+		function decodeCategoriesURL() {
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			categories = url.searchParams.get("categories");
+			categoriesArr = JSON.parse(categories);
+			if (categoriesArr == null) {
+				categoriesArr = [];
+			}
+			return categoriesArr;
+		}
+
+		function loadCategory(category) {		
+			categoriesArr = decodeCategoriesURL();
+			if (!document.getElementById(category).checked) {
+				var index = categoriesArr.indexOf(category);
+				console.log("Removing category");
+				if (index > -1) {
+					categoriesArr.splice(index, 1);
+				}
+			}
+			else {
+				categoriesArr.push(category);
+			}
+			console.log("category selected");
+			var url_str = encodeURIComponent(JSON.stringify(categoriesArr));
+			window.location = "./?school="+school+"&categories="+url_str;
+		}
+
+		function resetCategories() {
+			window.location = ".?school="+school;
 		}
 
 		function getClubs(school, categories) {
@@ -53,7 +103,8 @@
 
 		function run() {
 			findSchool();
-			getClubs(school, []);
+			var categories = getCategories();
+			getClubs(school, categories);
 		}
 
 		</script>
@@ -63,11 +114,35 @@
 	<body onload="run()">
 
 		<h1 class="text-center" id="name">Club Finder</h1>
-		<h5 class="text-center"><a href="/">Pick Another School</a></h5>
+		<h5 class="text-center"><a href="../">Pick Another School</a></h5>
 		<hr>
 
 		<div class="col-md-3 col-xs-12 categories">
-
+			<label class="form-check-label">
+				<input type="checkbox" id="humanitarian" class="form-check-input" onclick="loadCategory('humanitarian')">
+				Humanitarian
+    		</label>
+    		<label class="form-check-label">
+				<input type="checkbox" id="business" class="form-check-input" onclick="loadCategory('business')">
+				Business
+    		</label>
+    		<label class="form-check-label">
+				<input type="checkbox" id="math" class="form-check-input" onclick="loadCategory('math')">
+				Math
+    		</label>
+    		<label class="form-check-label">
+				<input type="checkbox" id="technology" class="form-check-input" onclick="loadCategory('technology')">
+				Technology
+    		</label>
+    		<label class="form-check-label">
+				<input type="checkbox" id="literature" class="form-check-input" onclick="loadCategory('literature')">
+				Literature
+    		</label>
+    		<label class="form-check-label">
+				<input type="checkbox" id="language" class="form-check-input" onclick="loadCategory('language')">
+				Foreign Language
+    		</label>
+    		<button class="btn btn-default" onclick="resetCategories()">Reset Categories</button>
 		</div>
 
 		<div id="groups" class="col-md-12 col-xs-12">

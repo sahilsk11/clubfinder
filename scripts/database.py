@@ -11,9 +11,11 @@ def new_club(name, categories, description):
     return g
 
 clubs = shelve.open("information_data.shelve", writeback=True)
+users = shelve.open("user_data.shelve", writeback=True)
+if not ("unique" in users):
+    users["unique"] = []
 if not ("schools" in clubs):
     clubs["schools"] = {"harker":[]}
-    clubs["users"] = {"unique": 0}
     
 form = cgi.FieldStorage()
 command = form.getfirst("command", "")
@@ -23,7 +25,19 @@ description = form.getfirst("description", "")
 categories = form.getfirst("categories", "")
 
 if (command == "pageload"):
-    d = clubs["schools"][school]
+    categories = categories.split(",")
+    clubs_arr = clubs["schools"][school]
+    d = []
+    if (len(categories) == 0):
+        d = clubs_arr
+    else:
+        for club in clubs_arr:
+            all_there = True
+            for category in categories:
+                if not (category in club["categories"]):
+                    all_there = False
+            if (all_there):
+                d.append(club)
     j = json.dumps(d)
     print j
     
