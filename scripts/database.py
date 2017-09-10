@@ -13,7 +13,7 @@ def new_club(name, categories, description):
 clubs = shelve.open("information_data.shelve", writeback=True)
 users = shelve.open("user_data.shelve", writeback=True)
 if not ("unique" in users):
-    users["unique"] = []
+    users["unique"] = {}
 if not ("schools" in clubs):
     clubs["schools"] = {"harker":[]}
     
@@ -23,6 +23,7 @@ school = form.getfirst("school", "")
 name = form.getfirst("name", "")
 description = form.getfirst("description", "")
 categories = form.getfirst("categories", "")
+user = form.getfirst("user", "")
 
 if (command == "pageload"):
     categories = categories.split(",")
@@ -49,4 +50,11 @@ if (command == "newclub"):
     d = {"sucess":True}
     j = json.dumps(d)
     print j
+
+if (command == "user_set"):
+    users["unique"][user] = 0
+    d = user
+    j = json.dumps(d)
+    print j
+
 clubs.close()

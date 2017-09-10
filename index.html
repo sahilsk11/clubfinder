@@ -6,10 +6,16 @@
 		<link href="CSS/bootstrap.css" rel="stylesheet">
 		<link href="CSS/organize.css" rel="stylesheet">
 
+
+		<script src="js/fingerprint.js"></script>
 		<script>
 
 		function chooseSchool(school) {
 			window.location="search?school="+school;
+		}
+
+		function setUserId() {
+			user_id = new Fingerprint({canvas: true}).get();
 		}
 
 		</script>
