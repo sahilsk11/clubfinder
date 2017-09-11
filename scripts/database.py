@@ -5,6 +5,7 @@ print "Content-type: application/json\n\n"
 import shelve
 import json
 import cgi
+from operator import itemgetter
 
 def new_club(name, categories, description):
     g = {"name":name, "categories":categories, "description":description}
@@ -47,6 +48,7 @@ if (command == "newclub"):
         clubs["schools"][school] = []
     clubs["schools"][school].append(new_club(name, categories, description))
     clubs["schools"][school] = sorted(clubs["school"][school])
+    clubs["schools"][school] = sorted(clubs["schools"][school], key=itemgetter('name')) 
     d = {"sucess":True}
     j = json.dumps(d)
     print j

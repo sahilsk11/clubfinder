@@ -16,13 +16,26 @@
 
 		function setUserId() {
 			user_id = new Fingerprint({canvas: true}).get();
+			function confirmUser(xhr, xhrConfig) {
+				var uid = JSON.parse(xhr.responseText);
+				console.log(uid);
+			}
+			XHRequest.createRequest({
+				success: confirmUser, 
+				method: "GET",
+				params: {
+					command: "user_set",
+					user: user_id
+				},
+				url: "../scripts/database.py"
+			});
 		}
 
 		</script>
 
 	</head>
 
-	<body>
+	<body onload="setUserId()">
 		<h1 class="text-center">Hello.</h1>
 		<h3 class="text-center">Please select your school</h3>
 
@@ -31,6 +44,9 @@
 			<br>
 			<br>
 			<button class="btn btn-default" onclick="chooseSchool('westlake')">Westlake</button>
+			<br>
+			<br>
+			<button class="btn btn-default" onclick="chooseSchool('montavista')">Monta Vista</button>
 		</div>
 
 	</body>

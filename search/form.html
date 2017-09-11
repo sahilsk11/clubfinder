@@ -12,6 +12,7 @@
 		function submitForm() {
 			var name = document.getElementById('name').value;
 			var school = document.getElementById('school').value;
+			school = school.replace(" ", "").toLowerCase();
 			var description = document.getElementById('description').value;
 			var categories_str = document.getElementById('categories').value;
 			var categories = formatCategories(categories_str);
@@ -54,6 +55,7 @@
 			<select id="school" type="dropdown">
 				<option>harker</option>
 				<option>westlake</option>
+				<option>Monta Vista</option>
 			</select>
 			<label>Description</label>
 			<textarea id="description"></textarea>
