@@ -15,6 +15,7 @@ clubs = shelve.open("information_data.shelve", writeback=True)
 users = shelve.open("user_data.shelve", writeback=True)
 if not ("unique" in users):
     users["unique"] = {}
+    users["total"] = 0
 if not ("schools" in clubs):
     clubs["schools"] = {"harker":[]}
     
