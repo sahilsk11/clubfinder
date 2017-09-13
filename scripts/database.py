@@ -35,12 +35,9 @@ if (command == "pageload"):
         d = clubs_arr
     else:
         for club in clubs_arr:
-            all_there = True
             for category in categories:
-                if not (category in club["categories"]):
-                    all_there = False
-            if (all_there):
-                d.append(club)
+                if category in club["categories"]:
+                    d.append(club)
     j = json.dumps(d)
     print j
     
