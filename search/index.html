@@ -5,9 +5,13 @@
 		<meta name = "viewport" content="initial-scale=1.0">
 		<link href="../CSS/bootstrap.css" rel="stylesheet">
 		<link href="../CSS/organize.css" rel="stylesheet">
+		<link href="../Images/icon.png" rel="icon">
+
 
 		<script src="../js/fingerprint.js"></script>
 		<script src="../js/XHRequest.js"></script>
+		<script src="../js/jquery-2.2.4.min.js"></script>
+		<script src="../js/bootstrap.js"></script>
 
 		<script>
 
@@ -52,6 +56,10 @@
 				if (element != null) {
 					element.checked = "true";
 				}
+				element = document.getElementById(categories[i]+"-nav");
+				if (element != null) {
+					element.checked = "true";
+				}
 			}
 		}
 
@@ -69,6 +77,23 @@
 		function loadCategory(category) {		
 			categoriesArr = decodeCategoriesURL();
 			if (!document.getElementById(category).checked) {
+				var index = categoriesArr.indexOf(category);
+				console.log("Removing category");
+				if (index > -1) {
+					categoriesArr.splice(index, 1);
+				}
+			}
+			else {
+				categoriesArr.push(category);
+			}
+			console.log("category selected");
+			var url_str = encodeURIComponent(JSON.stringify(categoriesArr));
+			window.location = "./?school="+school+"&categories="+url_str;
+		}
+
+		function loadCategoryNav(category) {		
+			categoriesArr = decodeCategoriesURL();
+			if (!document.getElementById(category+"-nav").checked) {
 				var index = categoriesArr.indexOf(category);
 				console.log("Removing category");
 				if (index > -1) {
@@ -134,70 +159,220 @@
 
 		<h1 class="text-center" id="name">Club Finder</h1>
 		<h5 class="text-center"><a href="../">Pick Another School</a></h5>
-		<hr>
+		<hr class="margin-hr">
 
-		<div class="col-md-6 col-xs-12 categories">
-			<label class="form-check-label">
-				<input type="checkbox" id="humanitarian" class="form-check-input" onclick="loadCategory('humanitarian')">
-				Humanitarian
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="business" class="form-check-input" onclick="loadCategory('business')">
-				Business
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="math" class="form-check-input" onclick="loadCategory('math')">
-				Math
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="technology" class="form-check-input" onclick="loadCategory('technology')">
-				Technology
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="literature" class="form-check-input" onclick="loadCategory('literature')">
-				Literature
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="foreignlanguage" class="form-check-input" onclick="loadCategory('foreignlanguage')">
-				Foreign Language
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="science" class="form-check-input" onclick="loadCategory('science')">
-				Science
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="music" class="form-check-input" onclick="loadCategory('music')">
-				Music
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="art" class="form-check-input" onclick="loadCategory('art')">
-				Art
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="communityservice" class="form-check-input" onclick="loadCategory('communityservice')">
-				Community Service
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="spirit" class="form-check-input" onclick="loadCategory('spirit')">
-				Spirit
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="journalism" class="form-check-input" onclick="loadCategory('journalism')">
-				Journalism
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="games" class="form-check-input" onclick="loadCategory('games')">
-				Games
-    		</label>
-    		<label class="form-check-label">
-				<input type="checkbox" id="other" class="form-check-input" onclick="loadCategory('other')">
-				Other
-    		</label>
+		<nav class="navbar navbar-default nav-categories">
+			<div class="container-fluid">
+    		<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        				<span class="sr-only">Toggle navigation</span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+      				</button>
+      				<p class="navbar-brand">Categories</p>
+				</div>
+
+    			<!-- Collect the nav links, forms, and other content for toggling -->
+    			<div class="collapse navbar-collapse padding-left" id="bs-example-navbar-collapse-1">
+      				<ul class="nav navbar-nav">
+      					<li class="nav-item">
+        					<label class="form-check-label">
+							<input type="checkbox" id="humanitarian-nav" class="form-check-input" onclick="loadCategoryNav('humanitarian')">
+							Humanitarian
+	    				</label>
+	      				</li>
+	      				<li class="nav-item">
+	        				<label class="form-check-label">
+								<input type="checkbox" id="business-nav" class="form-check-input" onclick="loadCategoryNav('business')">
+								Business
+		    				</label>
+	      				</li>
+	      				<li class="nav-item">
+	        				<label class="form-check-label">
+								<input type="checkbox" id="math-nav" class="form-check-input" onclick="loadCategoryNav('math')">
+								Math
+		    				</label>
+	      				</li>
+	  					<li class="nav-item">
+	       					<label class="form-check-label">
+								<input type="checkbox" id="technology-nav" class="form-check-input" onclick="loadCategoryNav('technology')">
+								Technology
+		    				</label>
+	      				</li>
+	      				<li>
+	      					<label class="form-check-label">
+								<input type="checkbox" id="literature-nav" class="form-check-input" onclick="loadCategoryNav('literature')">
+								Literature
+		    				</label>
+	  					</li>
+	  					<li>
+	  						<label class="form-check-label">
+								<input type="checkbox" id="foreignlanguage-nav" class="form-check-input" onclick="loadCategoryNav('foreignlanguage')">
+								Foreign Language
+		    				</label>
+	  					</li>
+	  					<li>
+	  						<label class="form-check-label">
+								<input type="checkbox" id="science-nav" class="form-check-input" onclick="loadCategoryNav('science')">
+								Science
+		    				</label>
+		    			</li>
+						<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="music-nav" class="form-check-input" onclick="loadCategoryNav('music')">
+								Music
+				    		</label>
+	    				</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="art-nav" class="form-check-input" onclick="loadCategoryNav('art')">
+								Art
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="communityservice-nav" class="form-check-input" onclick="loadCategoryNav('communityservice')">
+								Community Service
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="spirit-nav" class="form-check-input" onclick="loadCategoryNav('spirit')">
+								Spirit
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="journalism-nav" class="form-check-input" onclick="loadCategoryNav('journalism')">
+								Journalism
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="games-nav" class="form-check-input" onclick="loadCategoryNav('games')">
+								Games
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="dance-nav" class="form-check-input" onclick="loadCategoryNav('dance')">
+								Dance
+				    		</label>
+				    	</li>
+				    	<li class="nav-item">
+				    		<label class="form-check-label">
+								<input type="checkbox" id="other-nav" class="form-check-input" onclick="loadCategoryNav('other')">
+								Other
+				    		</label>
+				    	</li>
+  					</ul>
+  					<button class="btn btn-default" onclick="resetCategories()">Reset Categories</button>
+    			</div><!-- /.navbar-collapse -->
+  			</div><!-- /.container-fluid -->
+		</nav>
+
+		<hr class="nav-hr">
+
+		<div class="col-md-3 categories">
+			<span class="line">
+				<label class="form-check-label">
+					<input type="checkbox" id="humanitarian" class="form-check-input" onclick="loadCategory('humanitarian')">
+					Humanitarian
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="business" class="form-check-input" onclick="loadCategory('business')">
+					Business
+	    		</label>
+	    	</span>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="math" class="form-check-input" onclick="loadCategory('math')">
+					Math
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="technology" class="form-check-input" onclick="loadCategory('technology')">
+					Technology
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="literature" class="form-check-input" onclick="loadCategory('literature')">
+					Literature
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="foreignlanguage" class="form-check-input" onclick="loadCategory('foreignlanguage')">
+					Foreign Language
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="science" class="form-check-input" onclick="loadCategory('science')">
+					Science
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="music" class="form-check-input" onclick="loadCategory('music')">
+					Music
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="art" class="form-check-input" onclick="loadCategory('art')">
+					Art
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="communityservice" class="form-check-input" onclick="loadCategory('communityservice')">
+					Community Service
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="spirit" class="form-check-input" onclick="loadCategory('spirit')">
+					Spirit
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="journalism" class="form-check-input" onclick="loadCategory('journalism')">
+					Journalism
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="games" class="form-check-input" onclick="loadCategory('games')">
+					Games
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="dance" class="form-check-input" onclick="loadCategory('dance')">
+					Dance
+	    		</label>
+	    	</span>
+	    	<span class="line">
+	    		<label class="form-check-label">
+					<input type="checkbox" id="other" class="form-check-input" onclick="loadCategory('other')">
+					Other
+	    		</label>
+	    	</span>
+
     		<br>
     		<button class="btn btn-default" onclick="resetCategories()">Reset Categories</button>
 		</div>
 
-		<div id="groups" class="col-md-12 col-xs-12">
+		<div id="groups" class="col-md-9 col-md-offset-3">
 			
 		</div>
 
