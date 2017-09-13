@@ -86,3 +86,15 @@
         overflow: hidden!important;
     }
 }
+
+.footer {
+	padding-top: 50px;
+}
+
+.connect-logo {
+	width: 30%;
+	max-width: 300px;
+	display: block;
+	margin: auto;
+	padding-bottom: 20px;
+}

@@ -34,6 +34,10 @@
 			});
 		}
 
+		function capitalizeFirstLetter(string) {
+		    return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+
 		function findSchool() {
 			var url_string = window.location.href;
 			var url = new URL(url_string);
@@ -41,7 +45,7 @@
 			if (school == null) {
 				window.location = "../";
 			}
-			document.getElementById("name").innerHTML = "Club Finder: " + school;
+			document.getElementById("name").innerHTML = capitalizeFirstLetter(school);
 		}
 
 		function getCategories() {
@@ -131,10 +135,14 @@
 					document.getElementById("groups").innerHTML = "<h1 class='text-center'>Oops! No clubs were found.</h1>";
 			}
 			for (var i = 0; i < clubs.length; i++) {
+				var category = clubs[i].categories;
+				if (clubs[i].description == "") {
+					category = "none";
+				}
 				var html = '<div class="container-fluid text-center">\
 				<h3>'+clubs[i].name+'</h3>\
 				<p class="lead">'+clubs[i].description+'</p>\
-				<strong><p>Categories: '+clubs[i].categories+'</p></strong>\
+				<strong><p>Categories: '+category+'</p></strong>\
 				<hr>\
 				</div>';
 				var groupElement = document.getElementById("groups").innerHTML;
@@ -157,7 +165,8 @@
 
 	<body onload="run()">
 
-		<h1 class="text-center" id="name">Club Finder</h1>
+		<h1 class="text-center">Club Finder</h1>
+		<h3 class="text-center" id="name"></h3>
 		<h5 class="text-center"><a href="../">Pick Another School</a></h5>
 		<hr class="margin-hr">
 
@@ -375,6 +384,10 @@
 		<div id="groups" class="col-md-9 col-md-offset-3">
 			
 		</div>
+
+		<div class="container-fluid footer">
+			<img src="../Images/logo.png" class="connect-logo">
+			<p class="lead text-center">Comments? Feedback? Want to add your club? Reach out at <a href="mailto:connectmeteam@gmail.com">connectmeteam@gmail.com</a></p>
 
 	</body>
 </html>
